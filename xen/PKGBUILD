@@ -1,0 +1,65 @@
+# This is an example PKGBUILD file. Use this as a start to creating your own,
+# and remove these comments. For more information, see 'man PKGBUILD'.
+# NOTE: Please fill out the license field for your package! If it is unknown,
+# then please put 'unknown'.
+
+# Maintainer: Shuangshuai Jia <shuangshuaijia@gmail.com>
+pkgname=xen
+pkgver=4.1.2
+pkgrel=1
+epoch=
+pkgdesc="Xen 4.1.2 archlinux"
+arch=('i686' 'x86_64')
+url=""
+license=('GPL')
+groups=()
+depends=('bin86')
+makedepends=('dev86' 'iasl')
+checkdepends=()
+optdepends=()
+provides=()
+conflicts=('xen')
+replaces=()
+backup=()
+options=()
+install=
+changelog=
+source=($pkgname-$pkgver.tar.gz
+		gcc47.patch
+		gcc48.patch
+		ioqemu.patch
+		compile.patch)
+md5sums=('73561faf3c1b5e36ec5c089b5db848ad'
+         '10561b6f21372242b9a12198c5c2b893'
+         'c18f428713a4df6744deb94531c1b48a'
+         'd2b66aa3673eff0478c1e777059dabea'
+         '2592a54d2eea7627ea503fae5b3753c2')
+
+noextract=()
+
+build() {
+  cd "$srcdir/$pkgname-$pkgver"
+  patch -p1 -i ../gcc47.patch
+  patch -p1 -i ../gcc48.patch
+  patch -p1 -i ../ioqemu.patch
+  patch -p1 -i ../compile.patch
+  unset CFLAGS LDFLAGS
+  make xen
+  make PYTHON=python2 tools PYTHON_PREFIX_ARG=
+  make PYTHON=python2 stubdom
+}
+
+package() {
+  cd "$srcdir/$pkgname-$pkgver"
+  unset CFLAGS LDFLAGS
+  make DESTDIR=$pkgdir install-xen
+  make PYTHON=python2 DESTDIR=$pkgdir install-tools PYTHON_PREFIX_ARG=
+  make PYTHON=python2 DESTDIR=$pkgdir install-stubdom
+
+  for file in bios.bin openbios-sparc32 openbios-sparc64 ppc_rom.bin \
+	    pxe-e1000.bin pxe-ne2k_pci.bin pxe-pcnet.bin pxe-rtl8139.bin \
+	    vgabios.bin vgabios-cirrus.bin video.x openbios-ppc bamboo.dtb
+  do
+    rm -f $pkgdir/usr/share/xen/qemu/$file
+  done
+}

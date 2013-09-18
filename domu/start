@@ -1,0 +1,2 @@
+#!/bin/sh 
+sudo xm create -f arch.cfg -c

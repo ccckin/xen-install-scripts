@@ -1,0 +1,12 @@
+diff -ruN xen-4.1.2/config/x86_64.mk xen-4.1.2.new/config/x86_64.mk
+--- xen-4.1.2/config/x86_64.mk	2011-10-21 01:05:40.000000000 +0800
++++ xen-4.1.2.new/config/x86_64.mk	2013-09-17 19:17:21.759571903 +0800
+@@ -6,7 +6,7 @@
+ CONFIG_HVM := y
+ CONFIG_MIGRATE := y
+ CONFIG_XCUTILS := y
+-CONFIG_IOEMU := y
++CONFIG_IOEMU := n
+ 
+ CFLAGS += -m64
+ 

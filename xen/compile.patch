@@ -1,0 +1,11 @@
+diff -ruN xen-4.1.2/tools/debugger/gdbsx/xg/xg_main.c xen-4.1.2.new/tools/debugger/gdbsx/xg/xg_main.c
+--- xen-4.1.2/tools/debugger/gdbsx/xg/xg_main.c	2011-10-21 01:05:41.000000000 +0800
++++ xen-4.1.2.new/tools/debugger/gdbsx/xg/xg_main.c	2013-09-17 20:11:34.996181416 +0800
+@@ -46,6 +46,7 @@
+ #include <string.h>
+ #include <time.h>
+ #include <assert.h>
++#include <sys/types.h>
+ 
+ #include "xg_public.h"
+ #include <xen/version.h>
