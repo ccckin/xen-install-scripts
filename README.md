@@ -22,3 +22,8 @@ After you prepare the kernel and have installed xen. My scirpts will help you in
 `cd domu`
 `bash build.sh`
 
+# Demo video for reading the source code
+[Emacs+Cscope](http://pan.baidu.com/s/1pBUkF)
+
+[SourceInsight](http://pan.baidu.com/s/11hlTy)
+
